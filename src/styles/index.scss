@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Orbitron&display=swap');
+
+    $name-fonts: 'Orbitron', sans-serif;
+    $text-fonts: 'Open sans', sans-serif;
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+#container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    padding: 2rem;
+}
+
+.pokemon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(255, 203, 5, 0.8);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    margin: 1rem;
+    padding: .85rem 1.2rem;
+    width: 16rem;
+    height: 22rem;
+
+        .pokemon-id{
+            font-family: $text-fonts;
+        }
+
+        .pokemon-names {
+            margin-bottom: .75rem;
+            font-family: $name-fonts;
+            font-size: 1.5rem;
+            letter-spacing: 0.08rem;
+        }
+
+        .pokemon-images {
+            width: 9rem;
+            height: auto;
+            background-color: #fff;
+            border-radius: 5rem;
+            box-shadow: 0 0.5rem 1rem rgba(0,0,0,.15);
+        }
+
+        .pokemon-attr-card{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            margin-top: .8rem;
+            margin-bottom: .4rem;
+            padding: 0.4rem;
+            background-color: #fff;
+            width: 14rem;
+
+            .pokemon-attr{
+                font-family: $text-fonts;
+                //font-size: ;
+                text-align: center;
+
+            }
+        }
+}
+
