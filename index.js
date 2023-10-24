@@ -1,5 +1,5 @@
 async function getPokemons() {
-  const response = await fetch('https://pokeapi.co/api/v2/pokemon')
+  const response = await fetch('https://pokeapi.co/api/v2/pokemon?offset0&limit=50')
   const pokemons = await response.json()
   const pokemonsSortedById = pokemons.results.sort((a,b) => a.name - b.name)
   console.log(pokemonsSortedById)
@@ -15,7 +15,7 @@ async function renderPokemons(pokemon) {
   const pokeCard = document.createElement('div')
   pokeCard.classList.add('pokemon')
 
-  const pokemonName = p.name
+  const pokemonName = p.name[0].toUpperCase() + p.name.slice(1)
   const name = document.createElement('h2')
   name.setAttribute('class', 'pokemon-names')
   name.textContent = pokemonName
@@ -32,64 +32,82 @@ async function renderPokemons(pokemon) {
   pokemonTypesData.forEach((type) => {
     const eachType = document.createElement('p')
     //console.log(type.type.name)
-    eachType.setAttribute('class', 'pokemon-type')
+    //eachType.setAttribute('class', 'pokemon-type')
     //eachType.textContent = type.type.name[0].toUpperCase() + type.type.name.slice(1)
     pokemonTypes.append(eachType)
 
     switch(type.type.name) {
       case 'normal':
         eachType.textContent = 'Normal'
+        eachType.setAttribute('class','pokemon-type-normal')
         break
       case 'fire':
         eachType.textContent = 'Fire'
+        eachType.setAttribute('class','pokemon-type-fire')
         break
       case 'water':
         eachType.textContent = 'Water'
+        eachType.setAttribute('class','pokemon-type-water')
         break
         case 'grass':
         eachType.textContent = 'Grass'
+        eachType.setAttribute('class','pokemon-type-grass')
         break
         case 'electric':
         eachType.textContent = 'Eletric'
+        eachType.setAttribute('class','pokemon-type-eletric')
         break
         case 'ice':
         eachType.textContent = 'Ice'
+        eachType.setAttribute('class','pokemon-type-ice')
         break
         case 'fighting':
         eachType.textContent = 'Fighting'
+        eachType.setAttribute('class','pokemon-type-fighting')
         break
       case 'poison':
         eachType.textContent = 'Poison'
+        eachType.setAttribute('class','pokemon-type-poison')
         break
       case 'ground':
         eachType.textContent = 'Ground'
+        eachType.setAttribute('class','pokemon-type-ground')
         break
         case 'flying':
         eachType.textContent = 'Flying'
+        eachType.setAttribute('class','pokemon-type-flying')
         break
         case 'psychic':
         eachType.textContent = 'Psychic'
+        eachType.setAttribute('class','pokemon-type-psychic')
         break
         case 'bug':
         eachType.textContent = 'Bug'
+        eachType.setAttribute('class','pokemon-type-bug')
         break
         case 'rock':
         eachType.textContent = 'Rock'
+        eachType.setAttribute('class','pokemon-type-rock')
         break
       case 'ghost':
         eachType.textContent = 'Ghost'
+        eachType.setAttribute('class','pokemon-type-ghost')
         break
       case 'dragon':
         eachType.textContent = 'Dragon'
+        eachType.setAttribute('class','pokemon-type-dragon')
         break
         case 'dark':
         eachType.textContent = 'Dark'
+        eachType.setAttribute('class','pokemon-type-dark')
         break
         case 'steel':
         eachType.textContent = 'Steel'
+        eachType.setAttribute('class','pokemon-type-steel')
         break
         case 'fairy':
         eachType.textContent = 'Fairy'
+        eachType.setAttribute('class','pokemon-type-fairy')
         break
         default:
           console.log('err')
