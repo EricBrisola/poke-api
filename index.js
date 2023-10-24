@@ -1,9 +1,9 @@
 async function getPokemons() {
   const response = await fetch('https://pokeapi.co/api/v2/pokemon')
   const pokemons = await response.json()
-  const pokemonsSortedByName = pokemons.results.sort((a,b) => a.id - b.id)
-  //console.log(pokemonsSortedByName)
-  pokemonsSortedByName.forEach(pokemon => renderPokemons(pokemon))
+  const pokemonsSortedById = pokemons.results.sort((a,b) => a.name - b.name)
+  console.log(pokemonsSortedById)
+  pokemonsSortedById.forEach(pokemon => renderPokemons(pokemon))
 }
 
 
@@ -24,6 +24,78 @@ async function renderPokemons(pokemon) {
   pokemonId.textContent = '#' + (p.id + '').padStart(3, 0)
   pokemonId.setAttribute('class', 'pokemon-id')
 
+  const pokemonTypes = document.createElement('div')
+  pokemonTypes.setAttribute('class', 'pokemon-type-card')
+  const pokemonTypesData = p.types
+  //console.log(pokemonTypesData)
+
+  pokemonTypesData.forEach((type) => {
+    const eachType = document.createElement('p')
+    //console.log(type.type.name)
+    eachType.setAttribute('class', 'pokemon-type')
+    //eachType.textContent = type.type.name[0].toUpperCase() + type.type.name.slice(1)
+    pokemonTypes.append(eachType)
+
+    switch(type.type.name) {
+      case 'normal':
+        eachType.textContent = 'Normal'
+        break
+      case 'fire':
+        eachType.textContent = 'Fire'
+        break
+      case 'water':
+        eachType.textContent = 'Water'
+        break
+        case 'grass':
+        eachType.textContent = 'Grass'
+        break
+        case 'electric':
+        eachType.textContent = 'Eletric'
+        break
+        case 'ice':
+        eachType.textContent = 'Ice'
+        break
+        case 'fighting':
+        eachType.textContent = 'Fighting'
+        break
+      case 'poison':
+        eachType.textContent = 'Poison'
+        break
+      case 'ground':
+        eachType.textContent = 'Ground'
+        break
+        case 'flying':
+        eachType.textContent = 'Flying'
+        break
+        case 'psychic':
+        eachType.textContent = 'Psychic'
+        break
+        case 'bug':
+        eachType.textContent = 'Bug'
+        break
+        case 'rock':
+        eachType.textContent = 'Rock'
+        break
+      case 'ghost':
+        eachType.textContent = 'Ghost'
+        break
+      case 'dragon':
+        eachType.textContent = 'Dragon'
+        break
+        case 'dark':
+        eachType.textContent = 'Dark'
+        break
+        case 'steel':
+        eachType.textContent = 'Steel'
+        break
+        case 'fairy':
+        eachType.textContent = 'Fairy'
+        break
+        default:
+          console.log('err')
+    }
+  })
+
   const pokemonImg  = document.createElement('img')
   pokemonImg.setAttribute('class', 'pokemon-images')
 
@@ -38,7 +110,7 @@ async function renderPokemons(pokemon) {
 
   pokemonAttributeData.forEach((stat) => 
   {
-    console.log(stat.stat.name, stat.base_stat)
+    //console.log(stat.stat.name, stat.base_stat)
     const eachAttribute = document.createElement('p')
     eachAttribute.setAttribute('class', 'pokemon-attr')
 
@@ -64,9 +136,6 @@ async function renderPokemons(pokemon) {
         default:
           console.log('err')
     }
-    
-
-
 
     pokemonAttributeCard.append(eachAttribute)
   })
@@ -84,7 +153,7 @@ async function renderPokemons(pokemon) {
 // speed: 45
   
 
-  pokeCard.append(pokemonId, name, pokemonImg, pokemonAttributeCard)
+  pokeCard.append(pokemonId, name, pokemonImg,  pokemonTypes, pokemonAttributeCard)
   document.querySelector('#container').appendChild(pokeCard)
 }
 

@@ -33,6 +33,12 @@
   font-size: 1.5rem;
   letter-spacing: 0.08rem;
 }
+.pokemon .pokemon-type-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100%;
+}
 .pokemon .pokemon-images {
   width: 9rem;
   height: auto;
@@ -43,13 +49,14 @@
 .pokemon .pokemon-attr-card {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  margin-top: 0.8rem;
+  margin-top: 1.2rem;
   margin-bottom: 0.4rem;
   padding: 0.4rem;
   background-color: #fff;
-  width: 14rem;
+  width: 13.4rem;
 }
 .pokemon .pokemon-attr-card .pokemon-attr {
   font-family: "Open sans", sans-serif;
+  font-size: 1rem;
   text-align: center;
 }/*# sourceMappingURL=index.css.map */
