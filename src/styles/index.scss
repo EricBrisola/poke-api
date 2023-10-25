@@ -41,7 +41,13 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    background-color: rgba(255, 203, 5, 0.8);
+    //background-color: rgba(255, 203, 5, 1); -- yellow
+    background-color: rgba(255, 0, 0, 0.7); 
+    //background-color: rgba(254, 0, 101, 1); --pink
+    border-top: 2px solid  rgba(0, 0, 0, 0.15);
+    border-right: 10px solid rgba(139, 0, 0, 0.7);
+    border-bottom: 10px solid rgba(0, 0, 0, 0.7);
+    border-left: 2px solid  rgba(0, 0, 0, 0.15);
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
     margin: 1rem;
     //padding: .85rem 1.2rem;
@@ -50,6 +56,7 @@
 
         .pokemon-id{
             font-family: $text-fonts;
+            font-weight:700;
         }
 
         .pokemon-names {
@@ -72,7 +79,8 @@
             padding: 0.25rem;
             border-radius: 0.5rem;
             border: 2px solid #36454F;
-            letter-spacing: 0.03rem;
+            letter-spacing: 0.04rem;
+            font-weight: 600;
         }
         
         .pokemon-type-card {
@@ -169,6 +177,7 @@
                 font-family: $text-fonts;
                 font-size: 1rem;
                 text-align: center;
+                font-weight: 600;
 
             }
         }

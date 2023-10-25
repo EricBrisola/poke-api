@@ -1,5 +1,5 @@
 async function getPokemons() {
-  const response = await fetch('https://pokeapi.co/api/v2/pokemon?offset0&limit=50')
+  const response = await fetch('https://pokeapi.co/api/v2/pokemon?offset0&limit=100')
   const pokemons = await response.json()
   const pokemonsSortedById = pokemons.results.sort((a,b) => a.name - b.name)
   console.log(pokemonsSortedById)
@@ -157,19 +157,6 @@ async function renderPokemons(pokemon) {
 
     pokemonAttributeCard.append(eachAttribute)
   })
-
-// hp: 45
-
-// attack: 49
-
-// defense: 49
-
-// special-attack: 65
-
-// special-defense: 65
-
-// speed: 45
-  
 
   pokeCard.append(pokemonId, name, pokemonImg,  pokemonTypes, pokemonAttributeCard)
   document.querySelector('#container').appendChild(pokeCard)

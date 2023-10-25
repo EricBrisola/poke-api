@@ -18,7 +18,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  background-color: rgba(255, 203, 5, 0.8);
+  background-color: rgba(255, 0, 0, 0.7);
+  border-top: 2px solid rgba(0, 0, 0, 0.15);
+  border-right: 10px solid rgba(139, 0, 0, 0.7);
+  border-bottom: 10px solid rgba(0, 0, 0, 0.7);
+  border-left: 2px solid rgba(0, 0, 0, 0.15);
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   margin: 1rem;
   width: 16rem;
@@ -26,6 +30,7 @@
 }
 .pokemon .pokemon-id {
   font-family: "Open sans", sans-serif;
+  font-weight: 700;
 }
 .pokemon .pokemon-names {
   font-family: "Orbitron", sans-serif;
@@ -44,7 +49,8 @@
   padding: 0.25rem;
   border-radius: 0.5rem;
   border: 2px solid #36454F;
-  letter-spacing: 0.03rem;
+  letter-spacing: 0.04rem;
+  font-weight: 600;
 }
 .pokemon .pokemon-type-card {
   display: flex;
@@ -119,4 +125,5 @@
   font-family: "Open sans", sans-serif;
   font-size: 1rem;
   text-align: center;
+  font-weight: 600;
 }/*# sourceMappingURL=index.css.map */
