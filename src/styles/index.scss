@@ -44,23 +44,25 @@
     //background-color: rgba(255, 203, 5, 1); -- yellow
     background-color: rgba(255, 0, 0, 0.7); 
     //background-color: rgba(254, 0, 101, 1); --pink
-    border-top: 2px solid  rgba(0, 0, 0, 0.15);
+    border-top: 2px solid  rgba(0, 0, 0, 0.4);
     border-right: 10px solid rgba(139, 0, 0, 0.7);
     border-bottom: 10px solid rgba(0, 0, 0, 0.7);
-    border-left: 2px solid  rgba(0, 0, 0, 0.15);
+    border-left: 2px solid  rgba(0, 0, 0, 0.4);
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
     margin: 1rem;
-    //padding: .85rem 1.2rem;
     width: 16rem;
     height: 22rem;
 
         .pokemon-id{
+            background-color: #F9F6EE;
+            border-radius: 0.7rem;
+            border: 1px solid #000;
             font-family: $text-fonts;
             font-weight:700;
+            padding: .1rem .4rem;
         }
 
         .pokemon-names {
-            //margin-bottom: .75rem;
             font-family: $name-fonts;
             font-size: 1.5rem;
             letter-spacing: 0.08rem;
@@ -167,10 +169,12 @@
         .pokemon-attr-card{
             display: grid;
             grid-template-columns: 1fr 1fr;
-           // margin-top: 1.2rem;
-            //margin-bottom: .4rem;
+            border-radius: 0.5rem;
+            border: 1px solid #000;
             padding: 0.4rem;
             background-color: #F9F6EE;
+            //background: rgb(185,185,185);
+            //background: linear-gradient(45deg, rgba(209,209,209,1) 2%, rgba(234,234,234,1) 10%);
             width: 13.6rem;
 
             .pokemon-attr{
@@ -183,24 +187,4 @@
         }
 }
 
-///// pokemon type colors
-// 
-// normal: #A8A878
-// fire: #F08030
-// water: #6890F0
-// grass: #78C850
-//eletric: #F8D030
-//ice: #98D8D8
-//fighting: #C03028
-//poison: #A040A0
-//ground: #E0C068
-//flying: #A890F0
-//psychic: #F85888
-//bug: #A8B820
-//rock: #B8A038
-//ghost: #705898
-//dragon: #7038F8
-//dark: #705848
-//steel: #B8B8D0
-//fairy: #F0B6BC
 
