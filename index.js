@@ -1,7 +1,8 @@
 async function getPokemons() {
   const response = await fetch('https://pokeapi.co/api/v2/pokemon?offset0&limit=100')
+  const aux = 'https://pokeapi.co/api/v2/pokemon'
   const pokemons = await response.json()
-  const pokemonsSortedById = pokemons.results.sort((a,b) => a.name - b.name)
+  const pokemonsSortedById = pokemons.results.sort((a,b) => parseInt(a.url.slice(33))  - parseInt(b.url.slice(33)) )
   console.log(pokemonsSortedById)
   pokemonsSortedById.forEach(pokemon => renderPokemons(pokemon))
 }
