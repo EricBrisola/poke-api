@@ -1,10 +1,22 @@
 async function getPokemons() {
-  const response = await fetch('https://pokeapi.co/api/v2/pokemon?offset0&limit=100')
-  const aux = 'https://pokeapi.co/api/v2/pokemon'
-  const pokemons = await response.json()
-  const pokemonsSortedById = pokemons.results.sort((a,b) => parseInt(a.url.slice(33))  - parseInt(b.url.slice(33)) )
-  console.log(pokemonsSortedById)
-  pokemonsSortedById.forEach(pokemon => renderPokemons(pokemon))
+  try {
+    const response = await fetch('https://pokeapi.co/api/v2/pokemon?offset0&limit=100')
+    const pokemons = await response.json()
+
+    const regexToGetIds = /(?<=\/)[0-9]{1,}/
+
+    const pokemonsSortedById = pokemons.results.sort((a,b) => {
+      return parseInt(a.url.match(regexToGetIds)[0]) - parseInt(b.url.match(regexToGetIds)[0])
+    })
+    
+    //console.log(pokemonsSortedById)
+    for (const pokemon of pokemonsSortedById) {
+      await renderPokemons(pokemon);
+    }
+    //pokemonsSortedById.forEach(async (pokemon) =>  await renderPokemons(pokemon))
+  } catch (err) {
+    console.log(`Unable to find pokemon: ${err}`)
+  }
 }
 
 
@@ -160,7 +172,7 @@ async function renderPokemons(pokemon) {
   })
 
   pokeCard.append(pokemonId, name, pokemonImg,  pokemonTypes, pokemonAttributeCard)
-  document.querySelector('#container').appendChild(pokeCard)
+  document.querySelector('#content').appendChild(pokeCard)
 }
 
 getPokemons()
