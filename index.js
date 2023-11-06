@@ -1,9 +1,9 @@
 async function getPokemons() {
+  const regexToGetIds = /(?<=\/)[0-9]{1,}/
+  
   try {
     const response = await fetch('https://pokeapi.co/api/v2/pokemon?offset0&limit=100')
     const pokemons = await response.json()
-
-    const regexToGetIds = /(?<=\/)[0-9]{1,}/
 
     const pokemonsSortedById = pokemons.results.sort((a,b) => {
       return parseInt(a.url.match(regexToGetIds)[0]) - parseInt(b.url.match(regexToGetIds)[0])

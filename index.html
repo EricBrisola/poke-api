@@ -4,10 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>praticar com api do pokemon</title>
+  <link rel="shortcut icon" href="/src/assets/Pokeball-favicon.svg" type="image/x-icon">
   <link rel="stylesheet" href="src/styles/index.css">
 </head>
 <body>
-  <nav id="nav-bar"></nav>
+  <header>
+    <nav id="nav-bar">
+      <div id="search-section">
+        <p id="search-pokemon">
+          <input type="text" id="pokemon-search-input" maxlength="20" placeholder="id/pokemon">
+          <img src="/src/assets/x-icon.png" alt="x-icon" id="x-icon">
+        </p>
+        <img src="/src/assets/search-icon.png" alt="search-icon" id="search-icon">
+      </div>
+    </nav>
+  </header>
   <main id="container">
     <div id="background-blur"></div>
     <div id="content"></div>

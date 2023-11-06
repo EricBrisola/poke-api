@@ -6,10 +6,56 @@
 }
 
 #nav-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   width: 100%;
   height: 3rem;
   background-color: #FF4D4D;
   margin-bottom: 0.75rem;
+}
+#nav-bar #search-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.4rem;
+}
+#nav-bar #search-section #search-icon {
+  color: #F9F6EE;
+  width: 1.8rem;
+  height: 1.8rem;
+  cursor: pointer;
+}
+#nav-bar #search-section #search-pokemon {
+  display: flex;
+  align-items: center;
+  background-color: #f9f6ee;
+  width: 14rem;
+  height: 2rem;
+  padding: 0.2rem;
+  gap: 0.2rem;
+}
+#nav-bar #search-section #search-pokemon #pokemon-search-input {
+  width: 90%;
+  height: 100%;
+  border: none;
+  background-color: #f9f6ee;
+  letter-spacing: 0.08rem;
+  font-family: "Orbitron", sans-serif;
+  font-size: 1rem;
+}
+#nav-bar #search-section #search-pokemon #pokemon-search-input:focus {
+  outline: none;
+}
+#nav-bar #search-section #search-pokemon ::-webkit-input-placeholder {
+  letter-spacing: 0.08rem;
+  font-family: "Orbitron", sans-serif;
+  opacity: 0.7;
+}
+#nav-bar #search-section #x-icon {
+  width: 10%;
+  height: 1.4rem;
+  cursor: pointer;
 }
 
 #container {
@@ -19,7 +65,7 @@
   width: 100%;
   height: 100%;
   position: absolute;
-  background-image: url("../assets/wp8647157-all-pokemons-wallpapers.png");
+  background-image: url("../assets/pokemons-wallpapers.png");
   filter: blur(3px);
   background-repeat: repeat-y;
   z-index: -1;
@@ -153,4 +199,8 @@
   font-size: 1rem;
   text-align: center;
   font-weight: 600;
+}
+#content .pokemon:hover {
+  scale: 1.1;
+  transition: 0.75s;
 }/*# sourceMappingURL=index.css.map */
