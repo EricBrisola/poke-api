@@ -22,9 +22,13 @@
 }
 #nav-bar #search-section #search-icon {
   color: #F9F6EE;
-  width: 1.8rem;
-  height: 1.8rem;
+  width: 1.4rem;
+  height: 1.4rem;
   cursor: pointer;
+}
+#nav-bar #search-section #search-icon:hover {
+  scale: 1.1;
+  transition: 0.25s;
 }
 #nav-bar #search-section #search-pokemon {
   display: flex;
@@ -53,9 +57,13 @@
   opacity: 0.7;
 }
 #nav-bar #search-section #x-icon {
-  width: 10%;
-  height: 1.4rem;
+  width: 1rem;
+  height: 1rem;
   cursor: pointer;
+}
+#nav-bar #search-section #x-icon:hover {
+  scale: 1.1;
+  transition: 0.25s;
 }
 
 #container {

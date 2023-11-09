@@ -1,19 +1,71 @@
+const searchPokemonIcon = document.querySelector('#search-icon')
+
+searchPokemonIcon.addEventListener('click', verifyInputs)
+
+
+async function verifyInputs () {
+  const pokemonInfo = document.querySelector('#pokemon-search-input').value
+  const regextoIDs = /[0-9]/g
+  const regextoNames = /[a-zA-Z]/g
+
+  if(pokemonInfo === '') {
+    alert('You need a name or id to find a pokemon')
+  }
+  else {
+    if(regextoIDs.test(pokemonInfo)) {
+      console.log('id')
+      await findPokemonsbyId(pokemonInfo)
+    }
+    else if(regextoNames.test(pokemonInfo)) {
+      console.log('name')
+      await findPokemonsbyName(pokemonInfo)
+    }
+    else {
+      alert('Please search by names or ids only')
+    }
+  }
+}
+
+async function findPokemonsbyId(id) {
+  try {
+    const pokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+    await renderPokemons(pokemon)
+  } catch (error) {
+    alert(`Couldnt find pokemon with id: ${id}`)
+  }
+}
+
+async function findPokemonsbyName(name) {
+  const regexToGetIds = /(?<=\/)[0-9]{1,}/
+
+  try {
+    const resp = await fetch('https://pokeapi.co/api/v2/pokemon?offset0&limit=1292')
+    const allPokemons = await resp.json()
+    const pokemonFound = allPokemons.results.filter((a) => a.name === name.toLowerCase())
+    const pokemonFoundId = pokemonFound[0].url.match(regexToGetIds)[0]
+    console.log({name: pokemonFound[0].name, id: pokemonFoundId})
+    //await renderPokemons()
+  } catch (error) {
+    alert(`Couldnt find pokemon with name: ${name}`)
+  }
+}
+
 async function getPokemons() {
   const regexToGetIds = /(?<=\/)[0-9]{1,}/
   
   try {
     const response = await fetch('https://pokeapi.co/api/v2/pokemon?offset0&limit=100')
     const pokemons = await response.json()
+    //console.log(pokemons)
 
     const pokemonsSortedById = pokemons.results.sort((a,b) => {
       return parseInt(a.url.match(regexToGetIds)[0]) - parseInt(b.url.match(regexToGetIds)[0])
     })
     
-    //console.log(pokemonsSortedById)
     for (const pokemon of pokemonsSortedById) {
       await renderPokemons(pokemon);
     }
-    //pokemonsSortedById.forEach(async (pokemon) =>  await renderPokemons(pokemon))
+
   } catch (err) {
     console.log(`Unable to find pokemon: ${err}`)
   }
@@ -174,5 +226,6 @@ async function renderPokemons(pokemon) {
   pokeCard.append(pokemonId, name, pokemonImg,  pokemonTypes, pokemonAttributeCard)
   document.querySelector('#content').appendChild(pokeCard)
 }
+
 
 getPokemons()
