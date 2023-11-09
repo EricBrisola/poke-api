@@ -24,6 +24,7 @@ async function verifyInputs () {
       alert('Please search by names or ids only')
     }
   }
+  document.querySelector('#pokemon-search-input').value = ''
 }
 
 async function findPokemonsbyId(id) {
@@ -43,8 +44,7 @@ async function findPokemonsbyName(name) {
     const allPokemons = await resp.json()
     const pokemonFound = allPokemons.results.filter((a) => a.name === name.toLowerCase())
     const pokemonFoundId = pokemonFound[0].url.match(regexToGetIds)[0]
-    console.log({name: pokemonFound[0].name, id: pokemonFoundId})
-    //await renderPokemons()
+    await findPokemonsbyId(pokemonFoundId)
   } catch (error) {
     alert(`Couldnt find pokemon with name: ${name}`)
   }
