@@ -13,10 +13,12 @@ async function verifyInputs () {
   }
   else {
     if(regextoIDs.test(pokemonInfo)) {
+      cleanDiv()
       console.log('id')
       await findPokemonsbyId(pokemonInfo)
     }
     else if(regextoNames.test(pokemonInfo)) {
+      cleanDiv()
       console.log('name')
       await findPokemonsbyName(pokemonInfo)
     }
@@ -225,6 +227,14 @@ async function renderPokemons(pokemon) {
 
   pokeCard.append(pokemonId, name, pokemonImg,  pokemonTypes, pokemonAttributeCard)
   document.querySelector('#content').appendChild(pokeCard)
+}
+
+function cleanDiv () {
+  const allPokemonsDiv = document.querySelector('#content')
+
+  while (allPokemonsDiv.firstChild) {
+    allPokemonsDiv.removeChild(allPokemonsDiv.firstChild);
+  }
 }
 
 
