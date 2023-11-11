@@ -13,12 +13,12 @@ async function verifyInputs () {
   }
   else {
     if(regextoIDs.test(pokemonInfo)) {
-      cleanDiv()
+      clearAllPokemonsDiv()
       console.log('id')
       await findPokemonsbyId(pokemonInfo)
     }
     else if(regextoNames.test(pokemonInfo)) {
-      cleanDiv()
+      clearAllPokemonsDiv()
       console.log('name')
       await findPokemonsbyName(pokemonInfo)
     }
@@ -58,7 +58,7 @@ async function getPokemons() {
   try {
     const response = await fetch('https://pokeapi.co/api/v2/pokemon?offset0&limit=100')
     const pokemons = await response.json()
-    //console.log(pokemons)
+    console.log(pokemons)
 
     const pokemonsSortedById = pokemons.results.sort((a,b) => {
       return parseInt(a.url.match(regexToGetIds)[0]) - parseInt(b.url.match(regexToGetIds)[0])
@@ -229,7 +229,7 @@ async function renderPokemons(pokemon) {
   document.querySelector('#content').appendChild(pokeCard)
 }
 
-function cleanDiv () {
+function clearAllPokemonsDiv () {
   const allPokemonsDiv = document.querySelector('#content')
 
   while (allPokemonsDiv.firstChild) {
@@ -237,5 +237,10 @@ function cleanDiv () {
   }
 }
 
+function centralizeOnePokemon () {
+  const allPokemonsDiv = document.querySelector('#content')
+  console.log(allPokemonsDiv.childNodes.length)
+}
 
+centralizeOnePokemon()
 getPokemons()

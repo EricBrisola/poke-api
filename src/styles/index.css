@@ -68,6 +68,7 @@
 
 #container {
   position: relative;
+  min-height: 91.5vh;
 }
 #container #background-blur {
   width: 100%;
