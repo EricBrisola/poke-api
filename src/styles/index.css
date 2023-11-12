@@ -115,6 +115,7 @@
   font-family: "Orbitron", sans-serif;
   font-size: 1.5rem;
   letter-spacing: 0.08rem;
+  text-align: center;
 }
 #content .pokemon .pokemon-images {
   width: 9rem;

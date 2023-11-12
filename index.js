@@ -44,9 +44,12 @@ async function findPokemonsbyName(name) {
   try {
     const resp = await fetch('https://pokeapi.co/api/v2/pokemon?offset0&limit=1292')
     const allPokemons = await resp.json()
-    const pokemonFound = allPokemons.results.filter((a) => a.name === name.toLowerCase())
-    const pokemonFoundId = pokemonFound[0].url.match(regexToGetIds)[0]
-    await findPokemonsbyId(pokemonFoundId)
+    const pokemonFound = allPokemons.results.filter((a) => a.name.includes(name.toLowerCase()))
+    //console.log(pokemonFound)
+    for (const pokemon of pokemonFound){
+      const pokemonFoundId = pokemon.url.match(regexToGetIds)[0]
+      await findPokemonsbyId(pokemonFoundId)
+    }
   } catch (error) {
     alert(`Couldnt find pokemon with name: ${name}`)
   }
@@ -82,9 +85,14 @@ async function renderPokemons(pokemon) {
   const pokeCard = document.createElement('div')
   pokeCard.classList.add('pokemon')
 
-  const pokemonName = p.name[0].toUpperCase() + p.name.slice(1)
+  let pokemonName = p.name[0].toUpperCase() + p.name.slice(1)
   const name = document.createElement('h2')
   name.setAttribute('class', 'pokemon-names')
+
+  if (pokemonName.includes('-')){
+    pokemonName = pokemonName.replace(/-/g,' ')
+  }
+  
   name.textContent = pokemonName
 
   const pokemonId = document.createElement('h4')
@@ -184,8 +192,9 @@ async function renderPokemons(pokemon) {
   const pokemonImg  = document.createElement('img')
   pokemonImg.setAttribute('class', 'pokemon-images')
 
-  pokemonImg.src = p.sprites.front_default
-  //pokemonImg.src = p.sprites.versions['generation-v']['black-white']['animated']['front_default']
+  const pokeballImage = 'src/assets/pokeball-image.png'
+  //pokemonImg.src = p.sprites.front_default
+  pokemonImg.src = p.sprites.versions['generation-v']['black-white']['animated']['front_default'] || p.sprites.front_default || pokeballImage
   pokemonImg.alt = pokemonName
 
   
