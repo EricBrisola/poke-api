@@ -44,9 +44,9 @@ async function findPokemonsbyName(name) {
   try {
     const resp = await fetch('https://pokeapi.co/api/v2/pokemon?offset0&limit=1292')
     const allPokemons = await resp.json()
-    const pokemonFound = allPokemons.results.filter((a) => a.name.includes(name.toLowerCase()))
-    //console.log(pokemonFound)
-    for (const pokemon of pokemonFound){
+    const pokemonsFound = allPokemons.results.filter((a) => a.name.includes(name.toLowerCase()))
+    //console.log(pokemonsFound)
+    for (const pokemon of pokemonsFound){
       const pokemonFoundId = pokemon.url.match(regexToGetIds)[0]
       await findPokemonsbyId(pokemonFoundId)
     }
@@ -109,8 +109,7 @@ async function renderPokemons(pokemon) {
     //console.log(type.type.name)
     //eachType.setAttribute('class', 'pokemon-type')
     //eachType.textContent = type.type.name[0].toUpperCase() + type.type.name.slice(1)
-    pokemonTypes.append(eachType)
-
+    
     switch(type.type.name) {
       case 'normal':
         eachType.textContent = 'Normal'
@@ -187,15 +186,27 @@ async function renderPokemons(pokemon) {
         default:
           console.log('err')
     }
+
+    pokemonTypes.appendChild(eachType)
   })
 
-  const pokemonImg  = document.createElement('img')
-  pokemonImg.setAttribute('class', 'pokemon-images')
+  const pokemonImgDiv = document.createElement('div')
+  pokemonImgDiv.setAttribute('class', 'pokemon-images-div')
 
   const pokeballImage = 'src/assets/pokeball-image.png'
-  //pokemonImg.src = p.sprites.front_default
+
+  const pokemonImg  = document.createElement('img')
   pokemonImg.src = p.sprites.versions['generation-v']['black-white']['animated']['front_default'] || p.sprites.front_default || pokeballImage
   pokemonImg.alt = pokemonName
+
+  if(pokemonImg.src.includes('gif')){
+    pokemonImg.setAttribute('class', 'pokemon-image')
+  }
+  else{
+    pokemonImg.setAttribute('class', 'pokemon-image-no-gif')
+  }
+  
+  pokemonImgDiv.appendChild(pokemonImg)
 
   
   const pokemonAttributeCard = document.createElement('div')
@@ -231,10 +242,10 @@ async function renderPokemons(pokemon) {
           console.log('err')
     }
 
-    pokemonAttributeCard.append(eachAttribute)
+    pokemonAttributeCard.appendChild(eachAttribute)
   })
 
-  pokeCard.append(pokemonId, name, pokemonImg,  pokemonTypes, pokemonAttributeCard)
+  pokeCard.append(pokemonId, name, pokemonImgDiv,  pokemonTypes, pokemonAttributeCard)
   document.querySelector('#content').appendChild(pokeCard)
 }
 
