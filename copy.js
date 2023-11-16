@@ -3,7 +3,7 @@ const searchPokemonIcon = document.querySelector('#search-icon')
 searchPokemonIcon.addEventListener('click', verifyInputs)
 
 
-async function verifyInputs() {
+async function verifyInputs () {
   const pokemonInfo = document.querySelector('#pokemon-search-input').value
   const regextoIDs = /[0-9]/g
   const regextoNames = /[a-zA-Z]/g
@@ -85,57 +85,22 @@ async function renderPokemons(pokemon) {
   const pokeCard = document.createElement('div')
   pokeCard.classList.add('pokemon')
 
-  const name = getPokemonName(p)
+  // let pokemonName = p.name[0].toUpperCase() + p.name.slice(1)
+  // const name = document.createElement('h2')
+  // name.setAttribute('class', 'pokemon-names')
 
-  const pokemonId = getPokemonId(p)
-
-  const pokemonTypes = getPokemonTypes(p)
-
-  const pokemonImgDiv = getPokemonImage(p)
-
-  const pokemonAttributeCard = getPokemonStats(p)
+  // if (pokemonName.includes('-')){
+  //   pokemonName = pokemonName.replace(/-/g,' ')
+  // }
   
+  // name.textContent = pokemonName
 
-  pokeCard.append(pokemonId, name, pokemonImgDiv,  pokemonTypes, pokemonAttributeCard)
-  document.querySelector('#content').appendChild(pokeCard)
-}
+  const name = await getPokemonName(p)
 
-function clearAllPokemonsDiv() {
-  const allPokemonsDiv = document.querySelector('#content')
-
-  while (allPokemonsDiv.firstChild) {
-    allPokemonsDiv.removeChild(allPokemonsDiv.firstChild);
-  }
-}
-
-function centralizeOnePokemon() {
-  const allPokemonsDiv = document.querySelector('#content')
-  console.log(allPokemonsDiv.childNodes.length)
-}
-
-function getPokemonId(p) {
   const pokemonId = document.createElement('h4')
   pokemonId.textContent = '#' + (p.id + '').padStart(3, 0)
   pokemonId.setAttribute('class', 'pokemon-id')
 
-  return pokemonId
-}
-
-function getPokemonName(p) {
-  let pokemonName = p.name[0].toUpperCase() + p.name.slice(1)
-  const name = document.createElement('h2')
-  name.setAttribute('class', 'pokemon-names')
-
-  if (pokemonName.includes('-')){
-    pokemonName = pokemonName.replace(/-/g,' ')
-  }
-  
-  name.textContent = pokemonName
-
-  return name
-}
-
-function getPokemonTypes(p) {
   const pokemonTypes = document.createElement('div')
   pokemonTypes.setAttribute('class', 'pokemon-type-card')
   const pokemonTypesData = p.types
@@ -227,10 +192,6 @@ function getPokemonTypes(p) {
     pokemonTypes.appendChild(eachType)
   })
 
-  return pokemonTypes
-}
-
-function getPokemonImage(p) {
   const pokemonImgDiv = document.createElement('div')
   pokemonImgDiv.setAttribute('class', 'pokemon-images-div')
 
@@ -238,7 +199,7 @@ function getPokemonImage(p) {
 
   const pokemonImg  = document.createElement('img')
   pokemonImg.src = p.sprites.versions['generation-v']['black-white']['animated']['front_default'] || p.sprites.front_default || pokeballImage
-  pokemonImg.alt = p.name
+  pokemonImg.alt = name
 
   if(pokemonImg.src.includes('gif')){
     pokemonImg.setAttribute('class', 'pokemon-image')
@@ -249,10 +210,7 @@ function getPokemonImage(p) {
   
   pokemonImgDiv.appendChild(pokemonImg)
 
-  return pokemonImgDiv
-}
-
-function getPokemonStats(p) {
+  
   const pokemonAttributeCard = document.createElement('div')
   pokemonAttributeCard.setAttribute('class', 'pokemon-attr-card')
   const pokemonAttributeData = p.stats
@@ -289,7 +247,35 @@ function getPokemonStats(p) {
     pokemonAttributeCard.appendChild(eachAttribute)
   })
 
-  return pokemonAttributeCard
+  pokeCard.append(pokemonId, name, pokemonImgDiv,  pokemonTypes, pokemonAttributeCard)
+  document.querySelector('#content').appendChild(pokeCard)
+}
+
+function clearAllPokemonsDiv () {
+  const allPokemonsDiv = document.querySelector('#content')
+
+  while (allPokemonsDiv.firstChild) {
+    allPokemonsDiv.removeChild(allPokemonsDiv.firstChild);
+  }
+}
+
+function centralizeOnePokemon () {
+  const allPokemonsDiv = document.querySelector('#content')
+  console.log(allPokemonsDiv.childNodes.length)
+}
+
+async function getPokemonName (p) {
+  let pokemonName = p.name[0].toUpperCase() + p.name.slice(1)
+  const name = document.createElement('h2')
+  name.setAttribute('class', 'pokemon-names')
+
+  if (pokemonName.includes('-')){
+    pokemonName = pokemonName.replace(/-/g,' ')
+  }
+  
+  name.textContent = pokemonName
+
+  return name
 }
 
 centralizeOnePokemon()
