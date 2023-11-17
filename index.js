@@ -124,13 +124,15 @@ function getPokemonId(p) {
 function getPokemonName(p) {
   let pokemonName = p.name[0].toUpperCase() + p.name.slice(1)
   const name = document.createElement('h2')
-  name.setAttribute('class', 'pokemon-names')
+  //name.setAttribute('class', 'pokemon-names')
 
   if (pokemonName.includes('-')){
     pokemonName = pokemonName.replace(/-/g,' ')
   }
   
   name.textContent = pokemonName
+
+  pokemonName.length >= 13 ? name.setAttribute('class', 'big-pokemon-names') : name.setAttribute('class', 'pokemon-names')
 
   return name
 }
