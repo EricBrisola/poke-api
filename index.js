@@ -1,6 +1,8 @@
 const searchPokemonIcon = document.querySelector('#search-icon')
-
 searchPokemonIcon.addEventListener('click', verifyInputs)
+
+const homeButton = document.querySelector('#home-icon')
+homeButton.addEventListener('click', getPokemons)
 
 
 async function verifyInputs() {
@@ -14,12 +16,10 @@ async function verifyInputs() {
   else {
     if(regextoIDs.test(pokemonInfo)) {
       clearAllPokemonsDiv()
-      console.log('id')
       await findPokemonsbyId(pokemonInfo)
     }
     else if(regextoNames.test(pokemonInfo)) {
       clearAllPokemonsDiv()
-      console.log('name')
       await findPokemonsbyName(pokemonInfo)
     }
     else {
@@ -45,7 +45,7 @@ async function findPokemonsbyName(name) {
     const resp = await fetch('https://pokeapi.co/api/v2/pokemon?offset0&limit=1292')
     const allPokemons = await resp.json()
     const pokemonsFound = allPokemons.results.filter((a) => a.name.includes(name.toLowerCase()))
-    //console.log(pokemonsFound)
+    console.log(pokemonsFound)
     for (const pokemon of pokemonsFound){
       const pokemonFoundId = pokemon.url.match(regexToGetIds)[0]
       await findPokemonsbyId(pokemonFoundId)
@@ -56,6 +56,7 @@ async function findPokemonsbyName(name) {
 }
 
 async function getPokemons() {
+  clearAllPokemonsDiv()
   const regexToGetIds = /(?<=\/)[0-9]{1,}/
   
   try {
@@ -68,7 +69,7 @@ async function getPokemons() {
     })
     
     for (const pokemon of pokemonsSortedById) {
-      await renderPokemons(pokemon);
+       await renderPokemons(pokemon);
     }
 
   } catch (err) {
@@ -295,4 +296,4 @@ function getPokemonStats(p) {
 }
 
 centralizeOnePokemon()
-getPokemons()
+//getPokemons()
