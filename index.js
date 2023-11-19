@@ -296,5 +296,4 @@ function getPokemonStats(p) {
   return pokemonAttributeCard
 }
 
-centralizeOnePokemon()
 getPokemons()
