@@ -44,8 +44,8 @@
 
         #home-icon {
             display: flex;
-            width: 1.8rem;
-            height: 1.8rem;
+            width: 2rem;
+            height: 2rem;
             cursor: pointer;
             margin-left: 1rem;
             margin-right: .75rem;
@@ -155,7 +155,6 @@
         height: 24.64rem;
         padding: 0.5rem;
         //old value: 22rem height 16rem height
-         //TODO: reorganizar o tamanho do card 
     
         .pokemon-id{
             background-color: #F9F6EE;
@@ -192,8 +191,6 @@
             background-color: #F9F6EE;
             border-radius: 5rem;
             box-shadow: 0 0.5rem 1rem rgba(0,0,0,.15);
-            
-            //TODO: parear o tamanho da imagem e div com o futuro novo tamanho do card
 
             .pokemon-image {
                 width: 5.625rem;

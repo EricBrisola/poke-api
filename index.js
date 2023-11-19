@@ -39,6 +39,7 @@ async function findPokemonsbyId(id) {
 }
 
 async function findPokemonsbyName(name) {
+  //TODO: adicionar verificador para quando nao achar nenhum pokemon
   const regexToGetIds = /(?<=\/)[0-9]{1,}/
 
   try {
@@ -296,4 +297,4 @@ function getPokemonStats(p) {
 }
 
 centralizeOnePokemon()
-//getPokemons()
+getPokemons()
