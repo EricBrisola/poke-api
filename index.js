@@ -5,8 +5,8 @@ const homeButton = document.querySelector('#home-icon')
 homeButton.addEventListener('click', getPokemons)
 
 
-async function verifyInputs() {
-  const pokemonInfo = document.querySelector('#pokemon-search-input').value
+function verifyInputs() {
+  const pokemonInfo = document.querySelector('#pokemon-search-input').value.replace(/ /g,'-')
   const regextoIDs = /[0-9]/g
   const regextoNames = /[a-zA-Z]/g
 
@@ -16,11 +16,11 @@ async function verifyInputs() {
   else {
     if(regextoIDs.test(pokemonInfo)) {
       clearAllPokemonsDiv()
-      await findPokemonsbyId(pokemonInfo)
+      findPokemonsbyId(pokemonInfo)
     }
     else if(regextoNames.test(pokemonInfo)) {
       clearAllPokemonsDiv()
-      await findPokemonsbyName(pokemonInfo)
+      findPokemonsbyName(pokemonInfo)
     }
     else {
       alert('Please search by names or ids only')
@@ -39,20 +39,25 @@ async function findPokemonsbyId(id) {
 }
 
 async function findPokemonsbyName(name) {
-  //TODO: adicionar verificador para quando nao achar nenhum pokemon
   const regexToGetIds = /(?<=\/)[0-9]{1,}/
 
   try {
     const resp = await fetch('https://pokeapi.co/api/v2/pokemon?offset0&limit=1292')
     const allPokemons = await resp.json()
     const pokemonsFound = allPokemons.results.filter((a) => a.name.includes(name.toLowerCase()))
-    console.log(pokemonsFound)
-    for (const pokemon of pokemonsFound){
-      const pokemonFoundId = pokemon.url.match(regexToGetIds)[0]
-      await findPokemonsbyId(pokemonFoundId)
+    
+    if (pokemonsFound.length >= 1) {
+      for (const pokemon of pokemonsFound){
+        const pokemonFoundId = pokemon.url.match(regexToGetIds)[0]
+        await findPokemonsbyId(pokemonFoundId)
+      }
+    }
+    else {
+      alert(`Could not find pokemon with name: ${name}`)
+      getPokemons()
     }
   } catch (error) {
-    alert(`Couldnt find pokemon with name: ${name}`)
+    alert(`Could not find pokemon with name: ${name}`)
   }
 }
 
@@ -82,7 +87,7 @@ async function getPokemons() {
 async function renderPokemons(pokemon) {
   const response = await fetch(pokemon.url)
   const p = await response.json()
-  //console.log(p)
+  console.log(p)
 
   const pokeCard = document.createElement('div')
   pokeCard.classList.add('pokemon')
@@ -108,11 +113,6 @@ function clearAllPokemonsDiv() {
   while (allPokemonsDiv.firstChild) {
     allPokemonsDiv.removeChild(allPokemonsDiv.firstChild);
   }
-}
-
-function centralizeOnePokemon() {
-  const allPokemonsDiv = document.querySelector('#content')
-  console.log(allPokemonsDiv.childNodes.length)
 }
 
 function getPokemonId(p) {
@@ -225,7 +225,8 @@ function getPokemonTypes(p) {
         eachType.setAttribute('class','pokemon-type-fairy')
         break
         default:
-          console.log('err')
+          eachType.textContent = 'Empty'
+          eachType.setAttribute('class','pokemon-type-empty')
     }
 
     pokemonTypes.appendChild(eachType)
@@ -295,5 +296,5 @@ function getPokemonStats(p) {
 
   return pokemonAttributeCard
 }
-
+//TODO: criar funções para pegar as habilidades, exp base, peso, altura, pegar outra imagem de sprites.other.dream-world
 getPokemons()

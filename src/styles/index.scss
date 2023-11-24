@@ -226,80 +226,80 @@
             width: 100%;
             font-family: $text-fonts;
 
-            .pokemon-type-normal{
+            .pokemon-type-normal {
                 background-color: #A8A878;
             }
 
-            .pokemon-type-fire{
+            .pokemon-type-fire {
                 background-color: #F08030;
             }
 
-            .pokemon-type-water{
+            .pokemon-type-water {
                 background-color: #6890F0;
             }
 
-            .pokemon-type-grass{
+            .pokemon-type-grass {
                 background-color: #78C850;
             }
 
-            .pokemon-type-eletric{
+            .pokemon-type-eletric {
                 background-color: #F8D030;
             }
 
-            .pokemon-type-ice{
+            .pokemon-type-ice {
                 background-color: #98D8D8;
             } 
 
-            .pokemon-type-fighting{
+            .pokemon-type-fighting {
                 background-color: #C03028;
             }
 
-            .pokemon-type-poison{
+            .pokemon-type-poison {
                 background-color: #A040A0;
             }
 
-            .pokemon-type-ground{
+            .pokemon-type-ground {
                 background-color: #E0C068;
             }
 
-            .pokemon-type-flying{
+            .pokemon-type-flying {
                 background-color: #A890F0;
             }
 
-            .pokemon-type-psychic{
+            .pokemon-type-psychic {
                 background-color: #F85888;
             }
 
-            .pokemon-type-bug{
+            .pokemon-type-bug {
                 background-color: #A8B820;
             } 
 
-            .pokemon-type-rock{
+            .pokemon-type-rock {
                 background-color: #B8A038;
             } 
 
-            .pokemon-type-ghost{
+            .pokemon-type-ghost {
                 background-color: #705898;
             } 
 
-            .pokemon-type-dragon{
+            .pokemon-type-dragon {
                 background-color: #7038F8;
             } 
 
-            .pokemon-type-dark{
+            .pokemon-type-dark {
                 background-color: #705848;
             } 
 
-            .pokemon-type-steel{
+            .pokemon-type-steel {
                 background-color: #B8B8D0;
             } 
 
-            .pokemon-type-fairy{
+            .pokemon-type-fairy {
                 background-color: #F0B6BC;
-            } 
+            }
         }
     
-        .pokemon-attr-card{
+        .pokemon-attr-card {
             display: grid;
             grid-template-columns: 1fr 1fr;
             border-radius: 0.5rem;
@@ -313,7 +313,7 @@
             width: 15.3rem;
             // old 13.6rem
 
-            .pokemon-attr{
+            .pokemon-attr {
                 font-family: $text-fonts;
                 font-size: 1rem;
                 text-align: center;
