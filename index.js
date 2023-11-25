@@ -66,7 +66,7 @@ async function getPokemons() {
   const regexToGetIds = /(?<=\/)[0-9]{1,}/
   
   try {
-    const response = await fetch('https://pokeapi.co/api/v2/pokemon?offset0&limit=100')
+    const response = await fetch('https://pokeapi.co/api/v2/pokemon?offset0&limit=25')
     const pokemons = await response.json()
     console.log(pokemons)
 
@@ -101,6 +101,16 @@ async function renderPokemons(pokemon) {
   const pokemonImgDiv = getPokemonImage(p)
 
   const pokemonAttributeCard = getPokemonStats(p)
+
+  const pokemonAbilities = getPokemonAbilities(p)
+
+  const pokemonHeight = getPokemonHeight(p)
+  
+  const pokemonWeight = getPokemonWeight(p)
+
+  const pokemonBaseExp = getPokemonBaseExp(p)
+
+  const PokemonBackImg = getPokemonBackImg(p)
   
 
   pokeCard.append(pokemonId, name, pokemonImgDiv,  pokemonTypes, pokemonAttributeCard)
@@ -124,14 +134,9 @@ function getPokemonId(p) {
 }
 
 function getPokemonName(p) {
-  let pokemonName = p.name[0].toUpperCase() + p.name.slice(1)
+  let pokemonName = p.name[0].toUpperCase() + p.name.slice(1).replace(/-/g,' ')
   const name = document.createElement('h2')
-  //name.setAttribute('class', 'pokemon-names')
 
-  if (pokemonName.includes('-')){
-    pokemonName = pokemonName.replace(/-/g,' ')
-  }
-  
   name.textContent = pokemonName
 
   pokemonName.length >= 13 ? name.setAttribute('class', 'big-pokemon-names') : name.setAttribute('class', 'pokemon-names')
@@ -243,6 +248,7 @@ function getPokemonImage(p) {
 
   const pokemonImg  = document.createElement('img')
   pokemonImg.src = p.sprites.versions['generation-v']['black-white']['animated']['front_default'] || p.sprites.front_default || pokeballImage
+  //pokemonImg.src = p.sprites.other['dream_world']['front_default'] || p.sprites.front_default || pokeballImage
   pokemonImg.alt = p.name
 
   if(pokemonImg.src.includes('gif')){
@@ -296,5 +302,76 @@ function getPokemonStats(p) {
 
   return pokemonAttributeCard
 }
-//TODO: criar funções para pegar as habilidades, exp base, peso, altura, pegar outra imagem de sprites.other.dream-world
+
+function getPokemonAbilities(p) {
+  const abilitiesDiv = document.createElement('div')
+  abilitiesDiv.setAttribute('class', 'pokemon-abilities')
+
+  const allAbilities = p.abilities
+  //console.log(allAbilities)
+
+  allAbilities.forEach((e) => {
+    const eachAbility = document.createElement('p')
+    eachAbility.textContent = e.ability.name[0].toUpperCase() + e.ability.name.slice(1).replace(/-/g, ' ')
+    //console.log(eachAbility)
+    
+    abilitiesDiv.appendChild(eachAbility)
+  })
+
+  //console.log(abilitiesDiv)
+  return abilitiesDiv
+}
+
+function getPokemonHeight(p) {
+  const pokemonHeight = document.createElement('h4')
+  pokemonHeight.setAttribute('class','pokemon-height')
+  pokemonHeight.textContent = p.height/10 + ' M'
+
+  console.log(p.height/10 + ' M')
+
+  return pokemonHeight
+}
+
+function getPokemonWeight(p) {
+  const pokemonWeight = document.createElement('h4')
+  pokemonWeight.setAttribute('class','pokemon-weight')
+  pokemonWeight.textContent = p.weight + ' KG'
+
+  console.log(p.weight + ' KG')
+
+  return pokemonWeight
+}
+
+function getPokemonBaseExp(p) {
+  const pokemonExp = document.createElement('h4')
+  pokemonExp.setAttribute('class','pokemon-exp')
+  pokemonExp.textContent = p.base_experience + ' XP'
+
+  console.log(p.base_experience + ' XP')
+  return pokemonExp
+}
+
+function getPokemonBackImg(p) {
+  const pokemonBackImgDiv = document.createElement('div')
+  pokemonBackImgDiv.setAttribute('class', 'pokemon-images-div')
+
+  const pokeballImage = 'src/assets/pokeball-image.png'
+
+  const pokemonBackImg  = document.createElement('img')
+  pokemonBackImg.src = p.sprites.versions['generation-v']['black-white']['animated']['back_default'] || p.sprites.front_default || pokeballImage
+  pokemonBackImg.alt = p.name
+
+  if(pokemonBackImg.src.includes('gif')){
+    pokemonBackImg.setAttribute('class', 'pokemon-image')
+  }
+  else{
+    pokemonBackImg.setAttribute('class', 'pokemon-image-no-gif')
+  }
+  
+  pokemonBackImgDiv.appendChild(pokemonBackImg)
+
+  return pokemonBackImgDiv
+}
+
+
 getPokemons()
