@@ -264,7 +264,7 @@ function getPokemonImage(p) {
   const pokemonImgDiv = document.createElement('div')
   pokemonImgDiv.setAttribute('class', 'pokemon-images-div')
 
-  const pokeballImage = 'src/assets/pokeball-image.png'
+  const pokeballImage = '../assets/pokeball-image.png'
 
   const pokemonImg  = document.createElement('img')
   pokemonImg.src = p.sprites.versions['generation-v']['black-white']['animated']['front_default'] || p.sprites.front_default || pokeballImage
@@ -338,7 +338,7 @@ function getPokemonBackImg(p) {
   const pokemonBackImgDiv = document.createElement('div')
   pokemonBackImgDiv.setAttribute('class', 'pokemon-images-div')
   
-  const pokeballImage = 'src/assets/pokeball-image.png'
+  const pokeballImage = '../assets/pokeball-image.png'
   
   const pokemonBackImg  = document.createElement('img')
   pokemonBackImg.src = p.sprites.versions['generation-v']['black-white']['animated']['back_default'] || p.sprites.back_default || pokeballImage
