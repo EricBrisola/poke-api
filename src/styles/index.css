@@ -21,8 +21,8 @@
 }
 #nav-bar #home-container #home-icon {
   display: flex;
-  width: 1.8rem;
-  height: 1.8rem;
+  width: 2rem;
+  height: 2rem;
   cursor: pointer;
   margin-left: 1rem;
   margin-right: 0.75rem;
@@ -97,23 +97,51 @@
   padding: 4rem 2rem;
   z-index: 1;
 }
-#content .pokemon {
+#content .pokemon-card-flip {
+  margin: 1rem;
+  width: 18rem;
+  height: 24.64rem;
+  perspective: 1000px;
+}
+#content .pokemon-card-flip .pokemon-card-flip-inner {
+  position: relative;
+  width: 18rem;
+  height: 24.64rem;
+  transition: transform 1.3s;
+  transform-style: preserve-3d;
+}
+#content .pokemon-card-flip:hover .pokemon-card-flip-inner {
+  transform: rotateY(-180deg);
+}
+#content .pokemon-card-flip .pokemon-backside {
+  transform: rotateY(-180deg);
+}
+#content .pokemon-frontside,
+#content .pokemon-backside {
+  cursor: pointer;
+  position: absolute;
+  backface-visibility: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
   background-color: #FF4D4D;
-  border-top: 2.25px solid rgba(0, 0, 0, 0.4);
+  border: 2.25px solid rgba(0, 0, 0, 0.4);
   border-right: 12.5px solid rgba(139, 0, 0, 0.7);
   border-bottom: 12.5px solid rgba(0, 0, 0, 0.7);
-  border-left: 2.25px solid rgba(0, 0, 0, 0.4);
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-  margin: 1rem;
   width: 18rem;
   height: 24.64rem;
   padding: 0.5rem;
 }
-#content .pokemon .pokemon-id {
+#content .pokemon-frontside .pokemon-id,
+#content .pokemon-frontside .pokemon-exp,
+#content .pokemon-frontside .pokemon-height,
+#content .pokemon-frontside .pokemon-weight,
+#content .pokemon-backside .pokemon-id,
+#content .pokemon-backside .pokemon-exp,
+#content .pokemon-backside .pokemon-height,
+#content .pokemon-backside .pokemon-weight {
   background-color: #F9F6EE;
   border-radius: 0.7rem;
   border: 1.125px solid #000;
@@ -122,19 +150,22 @@
   font-size: 1.125rem;
   padding: 0.1rem 0.4rem;
 }
-#content .pokemon .pokemon-names {
+#content .pokemon-frontside .pokemon-names,
+#content .pokemon-backside .pokemon-names {
   font-family: "Orbitron", sans-serif;
   font-size: 1.5rem;
   letter-spacing: 0.08rem;
   text-align: center;
 }
-#content .pokemon .big-pokemon-names {
+#content .pokemon-frontside .big-pokemon-names,
+#content .pokemon-backside .big-pokemon-names {
   font-family: "Orbitron", sans-serif;
   font-size: 1.3rem;
   letter-spacing: 0.08rem;
   text-align: center;
 }
-#content .pokemon .pokemon-images-div {
+#content .pokemon-frontside .pokemon-images-div,
+#content .pokemon-backside .pokemon-images-div {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -144,15 +175,18 @@
   border-radius: 5rem;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
-#content .pokemon .pokemon-images-div .pokemon-image {
+#content .pokemon-frontside .pokemon-images-div .pokemon-image,
+#content .pokemon-backside .pokemon-images-div .pokemon-image {
   width: 5.625rem;
   height: 5.625rem;
 }
-#content .pokemon .pokemon-images-div .pokemon-image-no-gif {
+#content .pokemon-frontside .pokemon-images-div .pokemon-image-no-gif,
+#content .pokemon-backside .pokemon-images-div .pokemon-image-no-gif {
   width: 7.875rem;
   height: 7.875rem;
 }
-#content .pokemon .pokemon-type-card * {
+#content .pokemon-frontside .pokemon-type-card *,
+#content .pokemon-backside .pokemon-type-card * {
   color: #F9F6EE;
   padding: 0.25rem;
   border-radius: 0.5rem;
@@ -161,7 +195,9 @@
   font-weight: 600;
   font-size: 1.125rem;
 }
-#content .pokemon .pokemon-type-card {
+#content .pokemon-frontside .pokemon-type-card, #content .pokemon-frontside .height-weight-div,
+#content .pokemon-backside .pokemon-type-card,
+#content .pokemon-backside .height-weight-div {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -169,61 +205,98 @@
   width: 100%;
   font-family: "Open sans", sans-serif;
 }
-#content .pokemon .pokemon-type-card .pokemon-type-normal {
+#content .pokemon-frontside .pokemon-type-card .pokemon-type-normal, #content .pokemon-frontside .height-weight-div .pokemon-type-normal,
+#content .pokemon-backside .pokemon-type-card .pokemon-type-normal,
+#content .pokemon-backside .height-weight-div .pokemon-type-normal {
   background-color: #A8A878;
 }
-#content .pokemon .pokemon-type-card .pokemon-type-fire {
+#content .pokemon-frontside .pokemon-type-card .pokemon-type-fire, #content .pokemon-frontside .height-weight-div .pokemon-type-fire,
+#content .pokemon-backside .pokemon-type-card .pokemon-type-fire,
+#content .pokemon-backside .height-weight-div .pokemon-type-fire {
   background-color: #F08030;
 }
-#content .pokemon .pokemon-type-card .pokemon-type-water {
+#content .pokemon-frontside .pokemon-type-card .pokemon-type-water, #content .pokemon-frontside .height-weight-div .pokemon-type-water,
+#content .pokemon-backside .pokemon-type-card .pokemon-type-water,
+#content .pokemon-backside .height-weight-div .pokemon-type-water {
   background-color: #6890F0;
 }
-#content .pokemon .pokemon-type-card .pokemon-type-grass {
+#content .pokemon-frontside .pokemon-type-card .pokemon-type-grass, #content .pokemon-frontside .height-weight-div .pokemon-type-grass,
+#content .pokemon-backside .pokemon-type-card .pokemon-type-grass,
+#content .pokemon-backside .height-weight-div .pokemon-type-grass {
   background-color: #78C850;
 }
-#content .pokemon .pokemon-type-card .pokemon-type-eletric {
+#content .pokemon-frontside .pokemon-type-card .pokemon-type-eletric, #content .pokemon-frontside .height-weight-div .pokemon-type-eletric,
+#content .pokemon-backside .pokemon-type-card .pokemon-type-eletric,
+#content .pokemon-backside .height-weight-div .pokemon-type-eletric {
   background-color: #F8D030;
 }
-#content .pokemon .pokemon-type-card .pokemon-type-ice {
+#content .pokemon-frontside .pokemon-type-card .pokemon-type-ice, #content .pokemon-frontside .height-weight-div .pokemon-type-ice,
+#content .pokemon-backside .pokemon-type-card .pokemon-type-ice,
+#content .pokemon-backside .height-weight-div .pokemon-type-ice {
   background-color: #98D8D8;
 }
-#content .pokemon .pokemon-type-card .pokemon-type-fighting {
+#content .pokemon-frontside .pokemon-type-card .pokemon-type-fighting, #content .pokemon-frontside .height-weight-div .pokemon-type-fighting,
+#content .pokemon-backside .pokemon-type-card .pokemon-type-fighting,
+#content .pokemon-backside .height-weight-div .pokemon-type-fighting {
   background-color: #C03028;
 }
-#content .pokemon .pokemon-type-card .pokemon-type-poison {
+#content .pokemon-frontside .pokemon-type-card .pokemon-type-poison, #content .pokemon-frontside .height-weight-div .pokemon-type-poison,
+#content .pokemon-backside .pokemon-type-card .pokemon-type-poison,
+#content .pokemon-backside .height-weight-div .pokemon-type-poison {
   background-color: #A040A0;
 }
-#content .pokemon .pokemon-type-card .pokemon-type-ground {
+#content .pokemon-frontside .pokemon-type-card .pokemon-type-ground, #content .pokemon-frontside .height-weight-div .pokemon-type-ground,
+#content .pokemon-backside .pokemon-type-card .pokemon-type-ground,
+#content .pokemon-backside .height-weight-div .pokemon-type-ground {
   background-color: #E0C068;
 }
-#content .pokemon .pokemon-type-card .pokemon-type-flying {
+#content .pokemon-frontside .pokemon-type-card .pokemon-type-flying, #content .pokemon-frontside .height-weight-div .pokemon-type-flying,
+#content .pokemon-backside .pokemon-type-card .pokemon-type-flying,
+#content .pokemon-backside .height-weight-div .pokemon-type-flying {
   background-color: #A890F0;
 }
-#content .pokemon .pokemon-type-card .pokemon-type-psychic {
+#content .pokemon-frontside .pokemon-type-card .pokemon-type-psychic, #content .pokemon-frontside .height-weight-div .pokemon-type-psychic,
+#content .pokemon-backside .pokemon-type-card .pokemon-type-psychic,
+#content .pokemon-backside .height-weight-div .pokemon-type-psychic {
   background-color: #F85888;
 }
-#content .pokemon .pokemon-type-card .pokemon-type-bug {
+#content .pokemon-frontside .pokemon-type-card .pokemon-type-bug, #content .pokemon-frontside .height-weight-div .pokemon-type-bug,
+#content .pokemon-backside .pokemon-type-card .pokemon-type-bug,
+#content .pokemon-backside .height-weight-div .pokemon-type-bug {
   background-color: #A8B820;
 }
-#content .pokemon .pokemon-type-card .pokemon-type-rock {
+#content .pokemon-frontside .pokemon-type-card .pokemon-type-rock, #content .pokemon-frontside .height-weight-div .pokemon-type-rock,
+#content .pokemon-backside .pokemon-type-card .pokemon-type-rock,
+#content .pokemon-backside .height-weight-div .pokemon-type-rock {
   background-color: #B8A038;
 }
-#content .pokemon .pokemon-type-card .pokemon-type-ghost {
+#content .pokemon-frontside .pokemon-type-card .pokemon-type-ghost, #content .pokemon-frontside .height-weight-div .pokemon-type-ghost,
+#content .pokemon-backside .pokemon-type-card .pokemon-type-ghost,
+#content .pokemon-backside .height-weight-div .pokemon-type-ghost {
   background-color: #705898;
 }
-#content .pokemon .pokemon-type-card .pokemon-type-dragon {
+#content .pokemon-frontside .pokemon-type-card .pokemon-type-dragon, #content .pokemon-frontside .height-weight-div .pokemon-type-dragon,
+#content .pokemon-backside .pokemon-type-card .pokemon-type-dragon,
+#content .pokemon-backside .height-weight-div .pokemon-type-dragon {
   background-color: #7038F8;
 }
-#content .pokemon .pokemon-type-card .pokemon-type-dark {
+#content .pokemon-frontside .pokemon-type-card .pokemon-type-dark, #content .pokemon-frontside .height-weight-div .pokemon-type-dark,
+#content .pokemon-backside .pokemon-type-card .pokemon-type-dark,
+#content .pokemon-backside .height-weight-div .pokemon-type-dark {
   background-color: #705848;
 }
-#content .pokemon .pokemon-type-card .pokemon-type-steel {
+#content .pokemon-frontside .pokemon-type-card .pokemon-type-steel, #content .pokemon-frontside .height-weight-div .pokemon-type-steel,
+#content .pokemon-backside .pokemon-type-card .pokemon-type-steel,
+#content .pokemon-backside .height-weight-div .pokemon-type-steel {
   background-color: #B8B8D0;
 }
-#content .pokemon .pokemon-type-card .pokemon-type-fairy {
+#content .pokemon-frontside .pokemon-type-card .pokemon-type-fairy, #content .pokemon-frontside .height-weight-div .pokemon-type-fairy,
+#content .pokemon-backside .pokemon-type-card .pokemon-type-fairy,
+#content .pokemon-backside .height-weight-div .pokemon-type-fairy {
   background-color: #F0B6BC;
 }
-#content .pokemon .pokemon-attr-card {
+#content .pokemon-frontside .pokemon-attr-card,
+#content .pokemon-backside .pokemon-attr-card {
   display: grid;
   grid-template-columns: 1fr 1fr;
   border-radius: 0.5rem;
@@ -233,13 +306,28 @@
   background-color: #F9F6EE;
   width: 15.3rem;
 }
-#content .pokemon .pokemon-attr-card .pokemon-attr {
+#content .pokemon-frontside .pokemon-attr-card .pokemon-attr,
+#content .pokemon-backside .pokemon-attr-card .pokemon-attr {
   font-family: "Open sans", sans-serif;
   font-size: 1rem;
   text-align: center;
   font-weight: 600;
 }
-#content .pokemon:hover {
-  scale: 1.1;
-  transition: 0.75s;
+#content .pokemon-frontside .pokemon-abilities,
+#content .pokemon-backside .pokemon-abilities {
+  display: flex;
+  flex-direction: column;
+  background-color: #F9F6EE;
+  text-align: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: "Open sans", sans-serif;
+  letter-spacing: 0.08rem;
+  border-radius: 0.5rem;
+  border: 1.125px solid #000;
+  padding: 0.4rem;
+  gap: 0.2rem;
+  width: 15.3rem;
+  height: 6rem;
 }/*# sourceMappingURL=index.css.map */

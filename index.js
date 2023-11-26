@@ -1,9 +1,17 @@
 const searchPokemonIcon = document.querySelector('#search-icon')
 searchPokemonIcon.addEventListener('click', verifyInputs)
 
+const searchPokemonInput = document.querySelector('#pokemon-search-input')
+searchPokemonInput.addEventListener('keydown', useEnterToSearch)
+
 const homeButton = document.querySelector('#home-icon')
 homeButton.addEventListener('click', getPokemons)
 
+function useEnterToSearch(btn) {
+  if(btn.key === 'Enter') {
+    verifyInputs()
+  }
+}
 
 function verifyInputs() {
   const pokemonInfo = document.querySelector('#pokemon-search-input').value.replace(/ /g,'-')
@@ -68,7 +76,7 @@ async function getPokemons() {
   try {
     const response = await fetch('https://pokeapi.co/api/v2/pokemon?offset0&limit=25')
     const pokemons = await response.json()
-    console.log(pokemons)
+    //console.log(pokemons)
 
     const pokemonsSortedById = pokemons.results.sort((a,b) => {
       return parseInt(a.url.match(regexToGetIds)[0]) - parseInt(b.url.match(regexToGetIds)[0])
@@ -83,16 +91,24 @@ async function getPokemons() {
   }
 }
 
-
 async function renderPokemons(pokemon) {
   const response = await fetch(pokemon.url)
   const p = await response.json()
-  console.log(p)
 
-  const pokeCard = document.createElement('div')
-  pokeCard.classList.add('pokemon')
+  const pokeCardFlip = document.createElement('div')
+  pokeCardFlip.setAttribute('class', 'pokemon-card-flip')
 
-  const name = getPokemonName(p)
+  const pokeCardFlipInner = document.createElement('div')
+  pokeCardFlipInner.setAttribute('class', 'pokemon-card-flip-inner')
+
+  const pokeCardFront = document.createElement('div')
+  pokeCardFront.classList.add('pokemon-frontside')
+
+  const pokecardBack = document.createElement('div')
+  pokecardBack.classList.add('pokemon-backside')
+
+  const pokemonName = getPokemonName(p)
+  const pokemonNameBack = getPokemonName(p)
 
   const pokemonId = getPokemonId(p)
 
@@ -112,9 +128,17 @@ async function renderPokemons(pokemon) {
 
   const PokemonBackImg = getPokemonBackImg(p)
   
+  const pokemonHeightWeightDiv = document.createElement("div")
+  pokemonHeightWeightDiv.setAttribute('class', 'height-weight-div')
+  pokemonHeightWeightDiv.append(pokemonHeight, pokemonWeight)
 
-  pokeCard.append(pokemonId, name, pokemonImgDiv,  pokemonTypes, pokemonAttributeCard)
-  document.querySelector('#content').appendChild(pokeCard)
+  pokeCardFront.append(pokemonId, pokemonName, pokemonImgDiv,  pokemonTypes, pokemonAttributeCard)
+  pokecardBack.append(pokemonBaseExp, pokemonNameBack, PokemonBackImg, pokemonHeightWeightDiv, pokemonAbilities)
+
+  pokeCardFlipInner.append(pokecardBack, pokeCardFront)
+  pokeCardFlip.append(pokeCardFlipInner)
+
+  document.querySelector('#content').append(pokeCardFlip)
 }
 
 function clearAllPokemonsDiv() {
@@ -139,7 +163,7 @@ function getPokemonName(p) {
 
   name.textContent = pokemonName
 
-  pokemonName.length >= 13 ? name.setAttribute('class', 'big-pokemon-names') : name.setAttribute('class', 'pokemon-names')
+  pokemonName.length > 13 ? name.setAttribute('class', 'big-pokemon-names') : name.setAttribute('class', 'pokemon-names')
 
   return name
 }
@@ -148,13 +172,9 @@ function getPokemonTypes(p) {
   const pokemonTypes = document.createElement('div')
   pokemonTypes.setAttribute('class', 'pokemon-type-card')
   const pokemonTypesData = p.types
-  //console.log(pokemonTypesData)
 
   pokemonTypesData.forEach((type) => {
     const eachType = document.createElement('p')
-    //console.log(type.type.name)
-    //eachType.setAttribute('class', 'pokemon-type')
-    //eachType.textContent = type.type.name[0].toUpperCase() + type.type.name.slice(1)
     
     switch(type.type.name) {
       case 'normal':
@@ -248,7 +268,6 @@ function getPokemonImage(p) {
 
   const pokemonImg  = document.createElement('img')
   pokemonImg.src = p.sprites.versions['generation-v']['black-white']['animated']['front_default'] || p.sprites.front_default || pokeballImage
-  //pokemonImg.src = p.sprites.other['dream_world']['front_default'] || p.sprites.front_default || pokeballImage
   pokemonImg.alt = p.name
 
   if(pokemonImg.src.includes('gif')){
@@ -303,64 +322,28 @@ function getPokemonStats(p) {
   return pokemonAttributeCard
 }
 
-function getPokemonAbilities(p) {
-  const abilitiesDiv = document.createElement('div')
-  abilitiesDiv.setAttribute('class', 'pokemon-abilities')
-
-  const allAbilities = p.abilities
-  //console.log(allAbilities)
-
-  allAbilities.forEach((e) => {
-    const eachAbility = document.createElement('p')
-    eachAbility.textContent = e.ability.name[0].toUpperCase() + e.ability.name.slice(1).replace(/-/g, ' ')
-    //console.log(eachAbility)
-    
-    abilitiesDiv.appendChild(eachAbility)
-  })
-
-  //console.log(abilitiesDiv)
-  return abilitiesDiv
-}
-
-function getPokemonHeight(p) {
-  const pokemonHeight = document.createElement('h4')
-  pokemonHeight.setAttribute('class','pokemon-height')
-  pokemonHeight.textContent = p.height/10 + ' M'
-
-  console.log(p.height/10 + ' M')
-
-  return pokemonHeight
-}
-
-function getPokemonWeight(p) {
-  const pokemonWeight = document.createElement('h4')
-  pokemonWeight.setAttribute('class','pokemon-weight')
-  pokemonWeight.textContent = p.weight + ' KG'
-
-  console.log(p.weight + ' KG')
-
-  return pokemonWeight
-}
-
 function getPokemonBaseExp(p) {
   const pokemonExp = document.createElement('h4')
   pokemonExp.setAttribute('class','pokemon-exp')
   pokemonExp.textContent = p.base_experience + ' XP'
 
-  console.log(p.base_experience + ' XP')
+  if(typeof (p.base_experience) != 'number') {
+    pokemonExp.textContent = '0 XP'
+  }
+
   return pokemonExp
 }
 
 function getPokemonBackImg(p) {
   const pokemonBackImgDiv = document.createElement('div')
   pokemonBackImgDiv.setAttribute('class', 'pokemon-images-div')
-
+  
   const pokeballImage = 'src/assets/pokeball-image.png'
-
+  
   const pokemonBackImg  = document.createElement('img')
-  pokemonBackImg.src = p.sprites.versions['generation-v']['black-white']['animated']['back_default'] || p.sprites.front_default || pokeballImage
+  pokemonBackImg.src = p.sprites.versions['generation-v']['black-white']['animated']['back_default'] || p.sprites.back_default || pokeballImage
   pokemonBackImg.alt = p.name
-
+  
   if(pokemonBackImg.src.includes('gif')){
     pokemonBackImg.setAttribute('class', 'pokemon-image')
   }
@@ -369,9 +352,44 @@ function getPokemonBackImg(p) {
   }
   
   pokemonBackImgDiv.appendChild(pokemonBackImg)
-
+  
   return pokemonBackImgDiv
 }
 
+function getPokemonHeight(p) {
+  const pokemonHeight = document.createElement('h4')
+  pokemonHeight.setAttribute('class','pokemon-height')
+  pokemonHeight.textContent = p.height/10 + ' M'
+  
+  return pokemonHeight
+}
+
+function getPokemonWeight(p) {
+  const pokemonWeight = document.createElement('h4')
+  pokemonWeight.setAttribute('class','pokemon-weight')
+  pokemonWeight.textContent = p.weight + ' KG'
+
+  return pokemonWeight
+}
+
+function getPokemonAbilities(p) {
+  const abilitiesDiv = document.createElement('div')
+  abilitiesDiv.setAttribute('class', 'pokemon-abilities')
+
+  const abilitesTitle = document.createElement('p')
+  abilitesTitle.textContent = 'Abilities:'
+  abilitiesDiv.appendChild(abilitesTitle)
+
+  const allAbilities = p.abilities
+
+  allAbilities.forEach((e) => {
+    const eachAbility = document.createElement('p')
+    eachAbility.textContent = e.ability.name[0].toUpperCase() + e.ability.name.slice(1).replace(/-/g, ' ')
+    
+    abilitiesDiv.appendChild(eachAbility)
+  })
+
+  return abilitiesDiv
+}
 
 getPokemons()
